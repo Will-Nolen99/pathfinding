@@ -25,11 +25,14 @@ public class Node {
 	private PVector coords;
 	private int size;
 	private boolean hovered = false;
+	private int xIndex, yIndex;
 
 	
-	public Node(int xCoord, int yCoord, int size) {
+	public Node(int xCoord, int yCoord, int size, int x, int y) {
 		this.coords = new PVector(xCoord, yCoord);
 		this.size = size;
+		this.xIndex = x;
+		this.yIndex = y;
 	}
 	
 	//Scale the node to new coords and size

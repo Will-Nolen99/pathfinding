@@ -34,7 +34,7 @@ public class Grid {
 	private void setNodes() {
 		for (int i = 0; i < NUM_CELLS; i++) {
 			for (int j = 0; j < NUM_CELLS; j++) {
-				this.cells[i][j] = new Node(i * this.cellSize, j * this.cellSize, this.cellSize);
+				this.cells[i][j] = new Node(i * this.cellSize, j * this.cellSize, this.cellSize, i, j);
 			}
 		}
 	}
