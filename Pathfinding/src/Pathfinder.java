@@ -13,7 +13,7 @@ public class Pathfinder extends PApplet {
 
 	// called once at program start to give default parameters of the window7
 	public void settings() {
-		size(1000, 800);
+		size(1200, 1000);
 	}
 
 	// called once at program start to give default parameters of the canvas

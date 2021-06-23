@@ -10,13 +10,21 @@ import processing.core.PVector;
 public class Grid {
 
 	private static final int NUM_CELLS = 100;
-	private static final int MIN_CELL_SIZE = 10;
-	private static final int MAX_CELL_SIZE = 50;
+	private static final int MIN_CELLS = 10;
+	private static final int MAX_CELLS = 100;
 
-	private int cellSize = 25;
+	private float cellSize = 10;
+	
+	private int cellsToDraw = 100;
+	
 	private Node[][] cells = new Node[NUM_CELLS][NUM_CELLS];
 	private PVector offset = new PVector(0, 0);
 	private Type pastNode = Node.Type.EMPTY;
+	
+	private String mode = "drawing";
+	
+	
+	
 
 	public Grid() {
 		
@@ -24,7 +32,7 @@ public class Grid {
 		Node.createColors();
 		
 		//Set default start locations for start and end nodes. 
-		// indecies are arbitrary as long as they are in array bounds
+		// Indices are arbitrary as long as they are in array bounds
 		this.cells[5][5].makeStart();
 		this.cells[25][25].makeEnd();
 		
@@ -34,7 +42,7 @@ public class Grid {
 	private void setNodes() {
 		for (int i = 0; i < NUM_CELLS; i++) {
 			for (int j = 0; j < NUM_CELLS; j++) {
-				this.cells[i][j] = new Node(i * this.cellSize, j * this.cellSize, this.cellSize, i, j);
+				this.cells[i][j] = new Node(i * this.cellSize, j * this.cellSize,(int)this.cellSize, i, j);
 			}
 		}
 	}
@@ -51,8 +59,8 @@ public class Grid {
 	//draws each element of the grid to the screen
 	public void draw(PApplet window) {
 
-		for (int i = 0; i < NUM_CELLS; i++) {
-			for (int j = 0; j < NUM_CELLS; j++) {
+		for (int i = 0; i < this.cellsToDraw; i++) {
+			for (int j = 0; j < this.cellsToDraw; j++) {
 
 				this.cells[i][j].draw(window);
 
@@ -64,11 +72,14 @@ public class Grid {
 	//update each element of the grid
 	public void update(PApplet window) {
 		
-		for (int i = 0; i < NUM_CELLS; i++) {
-			for (int j = 0; j < NUM_CELLS; j++) {
-
-				this.cells[i][j].update(window);
-
+		//only update if in draw mode. 
+		if(this.mode.equals("drawing")) {
+			for (int i = 0; i < this.cellsToDraw; i++) {
+				for (int j = 0; j < this.cellsToDraw; j++) {
+	
+					this.cells[i][j].update(window);
+	
+				}
 			}
 		}
 		
@@ -76,11 +87,14 @@ public class Grid {
 	
 	// 
 	public void click(PApplet window) {
-		for (int i = 0; i < NUM_CELLS; i++) {
-			for (int j = 0; j < NUM_CELLS; j++) {
-
-				this.pastNode = cells[i][j].click(window, this.pastNode);
-
+		
+		if(this.mode.equals("drawing")) {
+			for (int i = 0; i < this.cellsToDraw; i++) {
+				for (int j = 0; j < this.cellsToDraw; j++) {
+	
+					this.pastNode = cells[i][j].click(window, this.pastNode);
+	
+				}
 			}
 		}
 	}
@@ -89,13 +103,16 @@ public class Grid {
 	//on scroll scale the grid
 	public void scroll(float amount) {
 		
-		this.cellSize += (int)amount;
+		this.cellsToDraw += (int)amount;
 		
-		if(this.cellSize < MIN_CELL_SIZE ) {
-			this.cellSize = MIN_CELL_SIZE;
-		} else if (this.cellSize > MAX_CELL_SIZE) {
-			this.cellSize = MAX_CELL_SIZE;
+		if(this.cellsToDraw < MIN_CELLS ) {
+			this.cellsToDraw = MIN_CELLS;
+		} else if (this.cellsToDraw > MAX_CELLS) {
+			this.cellsToDraw = MAX_CELLS;
 		}
+		
+		this.cellSize = (float) (1000.0 / this.cellsToDraw);
+		
 		
 		this.resetNodes();
 		

@@ -23,21 +23,21 @@ public class Node {
 	
 	private Type nodeType = Type.EMPTY;
 	private PVector coords;
-	private int size;
+	private float size;
 	private boolean hovered = false;
 	private int xIndex, yIndex;
 
 	
-	public Node(int xCoord, int yCoord, int size, int x, int y) {
-		this.coords = new PVector(xCoord, yCoord);
+	public Node(float f, float g, int size, int x, int y) {
+		this.coords = new PVector(f, g);
 		this.size = size;
 		this.xIndex = x;
 		this.yIndex = y;
 	}
 	
 	//Scale the node to new coords and size
-	public void reset(int xCoord, int yCoord, int size) {
-		this.coords = new PVector(xCoord, yCoord);
+	public void reset(float f, float g, float size) {
+		this.coords = new PVector(f, g);
 		this.size = size;
 	}
 	
