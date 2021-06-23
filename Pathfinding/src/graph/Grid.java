@@ -4,6 +4,9 @@ import graph.Node.Type;
 import processing.core.PApplet;
 import processing.core.PVector;
 
+
+
+// Class used to represent the overall grid containing nodes
 public class Grid {
 
 	private static final int NUM_CELLS = 100;
@@ -20,11 +23,14 @@ public class Grid {
 		this.setNodes();
 		Node.createColors();
 		
+		//Set default start locations for start and end nodes. 
+		// indecies are arbitrary as long as they are in array bounds
 		this.cells[5][5].makeStart();
 		this.cells[25][25].makeEnd();
 		
 	}
-	
+
+	//populate 2D array with initial nodes
 	private void setNodes() {
 		for (int i = 0; i < NUM_CELLS; i++) {
 			for (int j = 0; j < NUM_CELLS; j++) {
@@ -33,6 +39,7 @@ public class Grid {
 		}
 	}
 	
+	//change node coords and width to correspond with resizing
 	private void resetNodes() {
 		for (int i = 0; i < NUM_CELLS; i++) {
 			for (int j = 0; j < NUM_CELLS; j++) {
@@ -41,6 +48,7 @@ public class Grid {
 		}
 	}
 
+	//draws each element of the grid to the screen
 	public void draw(PApplet window) {
 
 		for (int i = 0; i < NUM_CELLS; i++) {
@@ -53,6 +61,7 @@ public class Grid {
 
 	}
 	
+	//update each element of the grid
 	public void update(PApplet window) {
 		
 		for (int i = 0; i < NUM_CELLS; i++) {
@@ -65,6 +74,7 @@ public class Grid {
 		
 	}
 	
+	// 
 	public void click(PApplet window) {
 		for (int i = 0; i < NUM_CELLS; i++) {
 			for (int j = 0; j < NUM_CELLS; j++) {
@@ -75,15 +85,16 @@ public class Grid {
 		}
 	}
 	
+	
+	//on scroll scale the grid
 	public void scroll(float amount) {
 		
+		this.cellSize += (int)amount;
 		
-		//testing these conditions twice fixes size jittering when trying to scroll when size is max or min
-		if(this.cellSize > MIN_CELL_SIZE && amount > 0) {
-			this.cellSize -= 1;
-			
-		} else if (this.cellSize < MAX_CELL_SIZE && amount < 0) {
-			this.cellSize += 1;
+		if(this.cellSize < MIN_CELL_SIZE ) {
+			this.cellSize = MIN_CELL_SIZE;
+		} else if (this.cellSize > MAX_CELL_SIZE) {
+			this.cellSize = MAX_CELL_SIZE;
 		}
 		
 		this.resetNodes();

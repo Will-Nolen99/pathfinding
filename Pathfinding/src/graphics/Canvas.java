@@ -3,6 +3,7 @@ package graphics;
 import graph.Grid;
 import processing.core.PApplet;
 
+//Class that represents the screen itself. What is show and the interaction between user.
 public class Canvas {
 
 	private Grid grid;
