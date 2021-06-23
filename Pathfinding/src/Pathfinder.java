@@ -1,3 +1,6 @@
+
+
+import graphics.Canvas;
 import processing.core.PApplet;
 
 public class Pathfinder extends PApplet {
@@ -6,6 +9,10 @@ public class Pathfinder extends PApplet {
     public static void main(String[] args) {
         PApplet.main("Pathfinder");
     }
+    
+    private Canvas graphics = new Canvas();
+    
+    
 
     // method for setting the size of the window
     public void settings(){
@@ -19,8 +26,12 @@ public class Pathfinder extends PApplet {
         strokeWeight(10);
     }
 
-    // identical use to draw in Prcessing IDE
+    // identical use to draw in Processing IDE
     public void draw(){
-        line(0, 0, 500, 500);
+    	background(0);
+    	
+    	this.graphics.draw(this);
+    	
+      
     }
 }
