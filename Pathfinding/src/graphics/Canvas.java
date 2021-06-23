@@ -19,8 +19,8 @@ public class Canvas {
 		this.grid.update(window);
 	}
 	
-	public void click() {
-		this.grid.click();
+	public void click(PApplet window) {
+		this.grid.click(window);
 	}
 	
 	public void scroll(float amount) {

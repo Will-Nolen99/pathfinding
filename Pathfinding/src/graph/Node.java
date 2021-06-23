@@ -64,18 +64,43 @@ public class Node {
 		
 		if(win.mousePressed && this.hovered) {
 			if(this.hovered) {
-				if(win.mouseButton == PApplet.LEFT) {
+				if(win.mouseButton == PApplet.LEFT && this.nodeType == Type.EMPTY) {
 					this.nodeType = Type.WALL;
-				} else if(win.mouseButton == PApplet.RIGHT) {
+				} else if(win.mouseButton == PApplet.RIGHT && this.nodeType == Type.WALL) {
 					this.nodeType = Type.EMPTY;
 				}
 				
 			}
 		}
 		
+	}
+	
+	public void makeStart() {
+		this.nodeType = Type.START;
+	}
+	
+	public Type click(PApplet window, Type pastType) {
 		
+		if(this.hovered) {
+				if(window.mouseButton == PApplet.CENTER) {
+					
+					Type temp = this.nodeType;
+					this.nodeType = pastType;
+					pastType = temp;
+					
+				}
+				
+		}
+		
+		return pastType;
 		
 	}
+	
+	public void makeEnd() {
+		this.nodeType = Type.TARGET;
+	}
+	
+	
 	
 	public static void createColors() {
 		colors = new HashMap<Type, PVector>();
@@ -84,20 +109,11 @@ public class Node {
 		colors.put(Type.EMPTY, new PVector(255, 255, 255));
 		colors.put(Type.WALL, new PVector(25, 25, 35));
 		colors.put(Type.HOVERED, new PVector(66, 68, 76));
+		colors.put(Type.START, new PVector(89, 205, 144));
+		colors.put(Type.TARGET, new PVector(238, 99, 82));
 		
 	}
 	
-	public void click() {
-		
-		if(this.hovered) {
-			if(this.nodeType == Type.EMPTY) {
-				this.nodeType = Type.WALL;
-			} else if(this.nodeType == Type.WALL) {
-				this.nodeType = Type.EMPTY;
-			}
-		}
-		
-	}
 
 	@Override
 	public String toString() {

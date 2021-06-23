@@ -12,7 +12,7 @@ public class Pathfinder extends PApplet {
 	private Canvas graphics = new Canvas();
 
 	public void settings() {
-		size(500, 500);
+		size(1000, 800);
 	}
 
 	public void setup() {
@@ -30,7 +30,7 @@ public class Pathfinder extends PApplet {
 	
 public void mousePressed() {
     	
-		//this.graphics.click();
+		this.graphics.click(this);
     	
     }
 
