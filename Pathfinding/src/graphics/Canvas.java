@@ -2,6 +2,7 @@ package graphics;
 
 import graph.Grid;
 import processing.core.PApplet;
+import ui.Button;
 
 //Class that represents the screen itself. What is show and the interaction between user.
 public class Canvas {
@@ -9,6 +10,7 @@ public class Canvas {
 	
 	static final int MENU_START_X = 1000;
 	private Grid grid;
+	private Button run = new Button(1025, 50, "run");
 
 	public Canvas() {
 		this.grid = new Grid();
@@ -24,15 +26,24 @@ public class Canvas {
 		
 		window.pop();
 		
+		this.run.draw(window);
+		
 		
 	}
 	
 	public void update(PApplet window) {
 		this.grid.update(window);
+		
+		this.run.update(window);
 	}
 	
 	public void click(PApplet window) {
 		this.grid.click(window);
+		String button = this.run.click();
+		System.out.println(button);
+		
+		
+		
 	}
 	
 	public void scroll(float amount) {

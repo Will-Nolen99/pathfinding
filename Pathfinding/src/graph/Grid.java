@@ -33,8 +33,8 @@ public class Grid {
 		
 		//Set default start locations for start and end nodes. 
 		// Indices are arbitrary as long as they are in array bounds
-		this.cells[5][5].makeStart();
-		this.cells[25][25].makeEnd();
+		this.cells[10][10].makeStart();
+		this.cells[90][90].makeEnd();
 		
 	}
 
