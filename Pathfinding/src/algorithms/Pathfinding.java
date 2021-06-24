@@ -1,9 +1,11 @@
 package algorithms;
 
+import graph.Node;
+
 public interface Pathfinding {
 	
 	//Begin the search
-	public void start();
+	public void start(Node[][] grid);
 	
 	//iterate one step of the algorithm
 	public void step();

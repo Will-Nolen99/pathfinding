@@ -12,7 +12,7 @@ import processing.core.PVector;
 public class Node {
 
 	//Enum contains all possibilities for node types
-	enum Type {
+	public enum Type {
 
 		EMPTY, WALL, PATH, SEARCH, TARGET, START, HOVERED
 
@@ -26,6 +26,9 @@ public class Node {
 	private float size;
 	private boolean hovered = false;
 	private int xIndex, yIndex;
+	
+	private Node parent;
+	private int distance;
 
 	
 	public Node(float f, float g, int size, int x, int y) {
@@ -134,6 +137,17 @@ public class Node {
 		
 	}
 	
+	public void setParent(Node n) {
+		this.parent = n;
+	}
+	
+	public void setDistance(int n) {
+		this.distance = n;
+	}
+	
+	public Type getType() {
+		return this.nodeType;
+	}
 
 	@Override
 	public String toString() {
