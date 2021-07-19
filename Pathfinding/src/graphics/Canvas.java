@@ -1,5 +1,7 @@
 package graphics;
 
+import java.util.ArrayList;
+
 import algorithms.Dijkstra;
 import algorithms.Pathfinder;
 import graph.Grid;
@@ -15,8 +17,8 @@ public class Canvas {
 	static final int MENU_START_X = 1000;
 	private Grid grid;
 	private Button run = new Button(1025, 50, "run");
-	private Button reset = new Button(1025, 150, "reset");
-	private Button clear = new Button(1025, 250, "clear");
+	private Button reset = new Button(1025, 800, "reset");
+	private Button clear = new Button(1025, 900, "clear");
 	private boolean searching = false;
 	private boolean needReset = false;
 	
@@ -80,18 +82,42 @@ public class Canvas {
 			this.needReset = false;
 		}
 		
+		//This is terrible, needs fixed
 		if(clear.equals("clear")) {
 			Node[][] cells = this.grid.getCells();
 			this.needReset = false;
 			
+			ArrayList<int[]> walls = new ArrayList<int[]>();
+			int[] start = new int[2];
+			int[] finish = new int[2];
+			
 			for(Node[] row: cells) {
 				for(Node node: row) {
-					if(node.getType() == Node.Type.SEARCH || node.getType() == Node.Type.PATH) {
-						node.setType(Node.Type.EMPTY);
-						
+					if(node.getType() == Node.Type.WALL) {
+						walls.add(node.getCoords());
+					}
+					
+					if(node.getType() == Node.Type.START) {
+						start = node.getCoords();
+					}
+					
+					if(node.getType() == Node.Type.TARGET) {
+						finish= node.getCoords();
 					}
 				}
 			}
+			
+			this.grid = new Grid();
+			cells = this.grid.getCells();
+			
+			for(int[] coords: walls) {
+				cells[coords[0]][coords[1]].setType(Node.Type.WALL);
+			}
+			
+			cells[start[0]][start[1]].setType(Node.Type.START);
+			cells[finish[0]][finish[1]].setType(Node.Type.TARGET);
+			
+			
 			
 		}
 		
