@@ -1,5 +1,7 @@
 package graph;
 
+import java.util.ArrayList;
+
 import graph.Node.Type;
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -116,6 +118,38 @@ public class Grid {
 		
 		this.resetNodes();
 		
+		
+	}
+
+	public Node[][] getCells() {
+		return this.cells;
+	}
+	
+	public  ArrayList<Node> getNeightbors(Node node){
+		
+		ArrayList<Node> neighbors = new ArrayList<Node>();
+		int[] coords = node.getCoords();
+		
+		if (coords[0] > 0) {
+			neighbors.add(this.cells[coords[0] - 1][coords[1]]);
+		}
+		
+		if (coords[0] < NUM_CELLS - 1) {
+			neighbors.add(this.cells[coords[0] + 1][coords[1]]);
+		}
+		
+		if (coords[1] > 0) {
+			neighbors.add(this.cells[coords[0]][coords[1] - 1]);
+		}
+		
+		if (coords[1] < NUM_CELLS - 1) {
+			neighbors.add(this.cells[coords[0]][coords[1] + 1]);
+		}
+		
+		
+		//This probably has off by one errors. Check here for bugs
+		
+		return neighbors;
 		
 	}
 	

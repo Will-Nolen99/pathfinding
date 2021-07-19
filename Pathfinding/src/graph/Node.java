@@ -29,6 +29,8 @@ public class Node {
 	
 	private Node parent;
 	private int distance;
+	
+	private boolean visited;
 
 	
 	public Node(float f, float g, int size, int x, int y) {
@@ -54,7 +56,16 @@ public class Node {
 		
 		PVector color = colors.get(this.nodeType);
 		
-		win.fill(color.x, color.y, color.z);
+		if(this.nodeType == Node.Type.SEARCH) {
+		
+			win.colorMode(PApplet.HSB, 360, 100, 100);
+			win.fill((this.distance * 2 + 90) % 360, 50, 50);
+			
+			
+		}else {
+			win.colorMode(PApplet.RGB, 255, 255, 255);
+			win.fill(color.x, color.y, color.z);
+		}
 		
 		win.square(this.coords.x, this.coords.y, this.size);
 
@@ -118,10 +129,17 @@ public class Node {
 		
 		//return past type. Past type will be the next node placed on middle mouse click
 		return pastType;
-		
 	}
 	
 
+	
+	public void visit() {
+		this.visited = true;
+	}
+	
+	public void unvisit() {
+		this.visited = false;
+	}
 	
 	
 	//Sets a hashmap of colors used by the grid
@@ -134,6 +152,8 @@ public class Node {
 		colors.put(Type.HOVERED, new PVector(66, 68, 76));
 		colors.put(Type.START, new PVector(89, 205, 144));
 		colors.put(Type.TARGET, new PVector(238, 99, 82));
+		colors.put(Type.PATH, new PVector(43, 45, 66));
+		colors.put(Type.SEARCH, new PVector(125, 125, 255));
 		
 	}
 	
@@ -151,7 +171,27 @@ public class Node {
 
 	@Override
 	public String toString() {
-		return this.nodeType.toString();
+		return this.nodeType.toString() + "["  + this.xIndex + "," + this.yIndex + "]";
+	}
+
+	public int getDistance() {
+		return this.distance;
+	}
+	
+	public int[] getCoords() {
+		return new int[] {this.xIndex, this.yIndex};
+	}
+	
+	public boolean isVisited() {
+		return this.visited;
+	}
+
+	public Node getParent() {
+		return this.parent;
+	}
+	
+	public void setType(Type type) {
+		this.nodeType = type;
 	}
 
 }
