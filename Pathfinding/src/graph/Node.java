@@ -31,6 +31,8 @@ public class Node {
 	private int distance;
 	
 	private boolean visited;
+	
+	private String direction;
 
 	
 	public Node(float f, float g, int size, int x, int y) {
@@ -59,7 +61,7 @@ public class Node {
 		if(this.nodeType == Node.Type.SEARCH) {
 		
 			win.colorMode(PApplet.HSB, 360, 100, 100);
-			win.fill((this.distance * 2 + 90) % 360, 50, 50);
+			win.fill((this.distance * 2 + 90) % 360, 20, 90);
 			
 			
 		}else {
@@ -193,5 +195,15 @@ public class Node {
 	public void setType(Type type) {
 		this.nodeType = type;
 	}
+	
+	public void setDirection(String d) {
+		this.direction = d;
+		
+	}
 
+	public String getDirection() {
+		return this.direction;
+	}
+	
+	
 }

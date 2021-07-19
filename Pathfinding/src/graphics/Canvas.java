@@ -2,6 +2,7 @@ package graphics;
 
 import java.util.ArrayList;
 
+import algorithms.DepthFirstSearch;
 import algorithms.Dijkstra;
 import algorithms.Pathfinder;
 import graph.Grid;
@@ -16,7 +17,8 @@ public class Canvas {
 	
 	static final int MENU_START_X = 1000;
 	private Grid grid;
-	private Button run = new Button(1025, 50, "run");
+	private Button dijkstra = new Button(1025, 50, "dijkstra");
+	private Button dfs = new Button(1025, 150, "dfs");
 	private Button reset = new Button(1025, 800, "reset");
 	private Button clear = new Button(1025, 900, "clear");
 	private boolean searching = false;
@@ -38,7 +40,8 @@ public class Canvas {
 		
 		window.pop();
 		
-		this.run.draw(window);
+		this.dijkstra.draw(window);
+		this.dfs.draw(window);
 		this.reset.draw(window);
 		this.clear.draw(window);
 		
@@ -48,11 +51,12 @@ public class Canvas {
 	public void update(PApplet window) {
 		if(!this.searching) {
 			this.grid.update(window);
-			this.run.update(window);
+			this.dijkstra.update(window);
+			this.dfs.update(window);
 			this.reset.update(window);
 			this.clear.update(window);
 		} else {
-			for(int i = 0; i < 100; i++) {
+			for(int i = 0; i < 10; i++) {
 				this.searching = !pathFind.step(this.grid);
 				if(!this.searching) {
 					break;
@@ -63,19 +67,30 @@ public class Canvas {
 	
 	public void click(PApplet window) {
 		this.grid.click(window);
-		String button = this.run.click();
+		String button = this.dijkstra.click();
 		String reset = this.reset.click();
 		String clear = this.clear.click();
 		System.out.println(button + reset + clear);
 		
 		System.out.println(this.needReset);
-		if(button.equals("run") && !this.needReset) {
+		if(button.equals("dijkstra") && !this.needReset) {
 			System.out.println("here");
 			this.pathFind = new Dijkstra();
 			pathFind.start(this.grid);
 			this.searching = true;
 			this.needReset = true;
 		}
+		
+		button = this.dfs.click();
+		
+		if(button.equals("dfs") && !this.needReset) {
+			System.out.println("here");
+			this.pathFind = new DepthFirstSearch();
+			pathFind.start(this.grid);
+			this.searching = true;
+			this.needReset = true;
+		}
+		
 		
 		if(reset.equals("reset")) {
 			this.grid = new Grid();

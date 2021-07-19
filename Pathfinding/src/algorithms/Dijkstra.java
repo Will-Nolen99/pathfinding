@@ -63,12 +63,16 @@ public final class Dijkstra extends Pathfinder {
 		Node currentNode = this.queue.poll();
 		ArrayList<Node> neighbors = grid.getNeightbors(currentNode);
 		
+		grid.removePath();
+		
+		if(currentNode.getType() != Node.Type.START) this.finish(currentNode);
+		
 		for(Node node: neighbors) {
 			if(!node.isVisited() && node.getType() != Node.Type.WALL) {
 				node.visit();
 				node.setDistance(currentNode.getDistance() + 1); //because in this program each distance increases by one, no reason to see if a better path has been found.
 				node.setParent(currentNode);
-				
+
 				
 				if(node.getType() == Node.Type.TARGET) {
 					this.finish(node);

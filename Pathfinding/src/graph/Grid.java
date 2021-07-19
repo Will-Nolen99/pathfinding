@@ -11,13 +11,13 @@ import processing.core.PVector;
 // Class used to represent the overall grid containing nodes
 public class Grid {
 
-	private static final int NUM_CELLS = 100;
+	private static final int NUM_CELLS = 75;
 	private static final int MIN_CELLS = 10;
-	private static final int MAX_CELLS = 100;
+	private static final int MAX_CELLS = 75;
 
-	private float cellSize = 10;
+	private int cellsToDraw = 75;
 	
-	private int cellsToDraw = 100;
+	private float cellSize = (float) (1000.0 / this.cellsToDraw);
 	
 	private Node[][] cells = new Node[NUM_CELLS][NUM_CELLS];
 	private PVector offset = new PVector(0, 0);
@@ -36,7 +36,7 @@ public class Grid {
 		//Set default start locations for start and end nodes. 
 		// Indices are arbitrary as long as they are in array bounds
 		this.cells[10][10].makeStart();
-		this.cells[90][90].makeEnd();
+		this.cells[70][70].makeEnd();
 		
 	}
 
@@ -146,10 +146,19 @@ public class Grid {
 			neighbors.add(this.cells[coords[0]][coords[1] + 1]);
 		}
 		
-		
-		//This probably has off by one errors. Check here for bugs
-		
 		return neighbors;
+		
+	}
+	
+
+	public void removePath() {
+		for(Node[] row: this.cells) {
+			for(Node node: row) {
+				if(node.getType() == Node.Type.PATH) {
+					node.setType(Node.Type.SEARCH);
+				}
+			}
+		}
 		
 	}
 	
