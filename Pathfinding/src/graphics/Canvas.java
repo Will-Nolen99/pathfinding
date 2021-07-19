@@ -110,6 +110,14 @@ public class Canvas {
 			this.grid = new Grid();
 			cells = this.grid.getCells();
 			
+			for(Node[] row: cells) {
+				for(Node node: row) {
+					if(node.getType() == Node.Type.START || node.getType() == Node.Type.TARGET) {
+						node.setType(Node.Type.EMPTY);
+					}
+				}
+			}
+			
 			for(int[] coords: walls) {
 				cells[coords[0]][coords[1]].setType(Node.Type.WALL);
 			}
