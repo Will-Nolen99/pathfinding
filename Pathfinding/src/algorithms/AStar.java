@@ -15,6 +15,7 @@ public class AStar extends Pathfinder {
 	}
 
 	private Node finish;
+	
 
 	@Override
 	public void start(Grid grid) {
@@ -78,7 +79,7 @@ public class AStar extends Pathfinder {
 				
 				
 				
-				int tempGScore = currentNode.getGScore();
+				int tempGScore = currentNode.getGScore() + 1;
 				if (tempGScore < node.getGScore()) {
 					node.setParent(currentNode);
 					node.setGScore(tempGScore);

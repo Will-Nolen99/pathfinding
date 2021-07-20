@@ -171,7 +171,7 @@ public class Grid {
 
 		
 
-		return PApplet.ceil(PApplet.dist(currentCoords[0], currentCoords[1], goalCoords[0], goalCoords[1]));
+		return PApplet.abs(currentCoords[0] - goalCoords[0]) + PApplet.abs(currentCoords[1] - currentCoords[1]);
 		
 		
 	}
