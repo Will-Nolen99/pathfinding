@@ -61,8 +61,14 @@ public class AStar extends Pathfinder {
 	@Override
 	public boolean step(Grid grid) {
 
+		if(this.queue.isEmpty()) {
+			return true;
+		}
 		Node currentNode = this.queue.poll();
-
+		
+		grid.removePath();
+		if(currentNode.getType() != Node.Type.START) this.finish(currentNode);
+		
 		ArrayList<Node> neighbors = grid.getNeightbors(currentNode);
 		System.out.println(currentNode + "FS: " + currentNode.getFScore() + " GS: " + currentNode.getGScore());
 
@@ -75,8 +81,6 @@ public class AStar extends Pathfinder {
 					this.finish(node);
 					return true;
 				}
-				
-				
 				
 				
 				int tempGScore = currentNode.getGScore() + 1;
