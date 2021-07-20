@@ -36,7 +36,7 @@ public class Button {
 		
 		window.textSize(32);
 		window.fill(0);
-		window.text(this.name, this.x + 50, this.y + this.height - 15);
+		window.text(this.name, this.x + 25, this.y + this.height - 15);
 		
 		
 		

@@ -2,6 +2,7 @@ package graphics;
 
 import java.util.ArrayList;
 
+import algorithms.AStar;
 import algorithms.DepthFirstSearch;
 import algorithms.Dijkstra;
 import algorithms.Pathfinder;
@@ -21,8 +22,12 @@ public class Canvas {
 	private Button dfs = new Button(1025, 150, "dfs");
 	private Button reset = new Button(1025, 800, "reset");
 	private Button clear = new Button(1025, 900, "clear");
+	private Button plus = new Button(1025, 500, "+");
+	private Button minus = new Button(1025, 625, "-");
+	private Button aStar = new Button(1025, 250, "A*"); 
 	private boolean searching = false;
 	private boolean needReset = false;
+	private int numSteps = 10;
 	
 	private Pathfinder pathFind;
 
@@ -42,21 +47,31 @@ public class Canvas {
 		
 		this.dijkstra.draw(window);
 		this.dfs.draw(window);
+		this.plus.draw(window);
+		this.minus.draw(window);
 		this.reset.draw(window);
 		this.clear.draw(window);
+		this.aStar.draw(window);
+		
+		window.text("Speed: " + this.numSteps, 1025, 600);
 		
 		
 	}
 	
 	public void update(PApplet window) {
+		
+		this.plus.update(window);
+		this.minus.update(window);
+		
 		if(!this.searching) {
 			this.grid.update(window);
 			this.dijkstra.update(window);
 			this.dfs.update(window);
 			this.reset.update(window);
 			this.clear.update(window);
+			this.aStar.update(window);
 		} else {
-			for(int i = 0; i < 10; i++) {
+			for(int i = 0; i < this.numSteps; i++) {
 				this.searching = !pathFind.step(this.grid);
 				if(!this.searching) {
 					break;
@@ -91,11 +106,33 @@ public class Canvas {
 			this.needReset = true;
 		}
 		
+		button = this.aStar.click();
+		
+		if(button.equals("A*") && !this.needReset) {
+			this.pathFind = new AStar();
+			pathFind.start(this.grid);
+			this.searching = true;
+			this.needReset = true;
+		}
 		
 		if(reset.equals("reset")) {
 			this.grid = new Grid();
 			this.needReset = false;
 		}
+		
+		if(this.plus.click().equals("+")) {
+			if(this.numSteps < 100) {
+				this.numSteps += 1;
+			}
+		}
+		
+		if(this.minus.click().equals("-")) {
+			if(this.numSteps > 0) {
+				this.numSteps -= 1;
+			}
+		}
+		
+		
 		
 		//This is terrible, needs fixed
 		if(clear.equals("clear")) {

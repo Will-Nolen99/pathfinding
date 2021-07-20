@@ -161,6 +161,20 @@ public class Grid {
 		}
 		
 	}
+
+	public int getHeuristic(Node start, Node finish) {
+		
+		int[] currentCoords = start.getCoords();
+		int[] goalCoords = finish.getCoords();
+		
+		
+
+		
+
+		return (int) PApplet.dist(currentCoords[0], currentCoords[1], goalCoords[0], goalCoords[1]);
+		
+		
+	}
 	
 
 }

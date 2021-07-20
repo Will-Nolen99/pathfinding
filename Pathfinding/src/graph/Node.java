@@ -26,6 +26,7 @@ public class Node {
 	private float size;
 	private boolean hovered = false;
 	private int xIndex, yIndex;
+	private int gScore, fScore;
 	
 	private Node parent;
 	private int distance;
@@ -204,6 +205,24 @@ public class Node {
 	public String getDirection() {
 		return this.direction;
 	}
+	
+	public void setGScore(int num) {
+		this.gScore = num;
+	}
+	
+	public void setFScore(int num) {
+		this.fScore = num;
+	}
+	
+	public int  getGScore() {
+		return this.gScore;
+	}
+	
+	
+	public int  getFScore() {
+		return this.fScore;
+	}
+	
 	
 	
 }
