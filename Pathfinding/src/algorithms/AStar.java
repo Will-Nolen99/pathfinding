@@ -71,20 +71,18 @@ public class AStar extends Pathfinder {
 				
 				if (node.getType() == Node.Type.TARGET) {
 					node.setParent(currentNode);
-					System.out.println("FOUND");
-					this.finish(currentNode);
-					
+					this.finish(node);
 					return true;
 				}
 				
 				
 				
 				
-				int tempGScore = currentNode.getGScore() + 1;
+				int tempGScore = currentNode.getGScore();
 				if (tempGScore < node.getGScore()) {
 					node.setParent(currentNode);
 					node.setGScore(tempGScore);
-					node.setDistance(tempGScore);
+					node.setDistance(currentNode.getDistance() + 1);
 					node.setType(Node.Type.SEARCH);
 					node.setFScore(tempGScore + grid.getHeuristic(node, this.finish));
 
@@ -101,12 +99,15 @@ public class AStar extends Pathfinder {
 
 	@Override
 	public void finish(Node node) {
+		
+		
 		Node currentNode = node.getParent();
+		
+		
 
 		while (currentNode.getParent() != null) {
-			
-			System.out.println(currentNode);
 
+			
 			currentNode.setType(Node.Type.PATH);
 			currentNode = currentNode.getParent();
 

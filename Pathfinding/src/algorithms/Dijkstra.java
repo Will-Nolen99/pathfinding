@@ -92,6 +92,7 @@ public final class Dijkstra extends Pathfinder {
 	public void finish(Node node) {
 	
 		Node currentNode = node.getParent();
+		System.out.println(currentNode.getDistance());
 		
 
 		

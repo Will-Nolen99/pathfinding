@@ -171,7 +171,7 @@ public class Grid {
 
 		
 
-		return (int) PApplet.dist(currentCoords[0], currentCoords[1], goalCoords[0], goalCoords[1]);
+		return PApplet.ceil(PApplet.dist(currentCoords[0], currentCoords[1], goalCoords[0], goalCoords[1]));
 		
 		
 	}
