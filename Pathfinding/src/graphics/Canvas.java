@@ -12,6 +12,7 @@ import graph.Node;
 import processing.core.PApplet;
 import processing.core.PVector;
 import ui.Button;
+import ui.Checkbox;
 
 //Class that represents the screen itself. What is show and the interaction between user.
 public class Canvas {
@@ -26,6 +27,7 @@ public class Canvas {
 	private Button plus = new Button(1025, 500, "+");
 	private Button minus = new Button(1025, 625, "-");
 	private Button aStar = new Button(1025, 250, "A*"); 
+	private Checkbox traceCheck = new Checkbox(1025, 700);
 	private boolean searching = false;
 	private boolean needReset = false;
 	private int numSteps = 10;
@@ -53,8 +55,17 @@ public class Canvas {
 		this.reset.draw(window);
 		this.clear.draw(window);
 		this.aStar.draw(window);
+		this.traceCheck.draw(window);
 		
 		window.text("Speed: " + this.numSteps, 1025, 600);
+		
+		window.push();
+		
+		window.textSize(15);
+		
+		window.text("Trace while searching", 1040, 710);
+		
+		window.pop();
 		
 		
 	}
@@ -71,6 +82,7 @@ public class Canvas {
 			this.reset.update(window);
 			this.clear.update(window);
 			this.aStar.update(window);
+			this.traceCheck.update(window);
 		} else {
 			for(int i = 0; i < this.numSteps; i++) {
 				this.searching = !pathFind.step(this.grid);
@@ -87,11 +99,15 @@ public class Canvas {
 		String reset = this.reset.click();
 		String clear = this.clear.click();
 		System.out.println(button + reset + clear);
+		this.traceCheck.click();
+		
+		
+		boolean checked = this.traceCheck.getChecked();
 		
 		System.out.println(this.needReset);
 		if(button.equals("dijkstra") && !this.needReset) {
 			System.out.println("here");
-			this.pathFind = new Dijkstra();
+			this.pathFind = new Dijkstra(checked);
 			pathFind.start(this.grid);
 			this.searching = true;
 			this.needReset = true;
@@ -101,7 +117,7 @@ public class Canvas {
 		
 		if(button.equals("greedy") && !this.needReset) {
 			System.out.println("here");
-			this.pathFind = new Greedy();
+			this.pathFind = new Greedy(checked);
 			pathFind.start(this.grid);
 			this.searching = true;
 			this.needReset = true;
@@ -110,7 +126,7 @@ public class Canvas {
 		button = this.aStar.click();
 		
 		if(button.equals("A*") && !this.needReset) {
-			this.pathFind = new AStar();
+			this.pathFind = new AStar(checked);
 			pathFind.start(this.grid);
 			this.searching = true;
 			this.needReset = true;
@@ -123,13 +139,13 @@ public class Canvas {
 		
 		if(this.plus.click().equals("+")) {
 			if(this.numSteps < 100) {
-				this.numSteps += 1;
+				this.numSteps += 5;
 			}
 		}
 		
 		if(this.minus.click().equals("-")) {
 			if(this.numSteps > 0) {
-				this.numSteps -= 1;
+				this.numSteps -= 5;
 			}
 		}
 		

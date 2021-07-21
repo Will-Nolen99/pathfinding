@@ -10,8 +10,8 @@ import graph.Node.Type;
 
 public class AStar extends Pathfinder {
 
-	public AStar() {
-
+	public AStar(boolean trace) {
+		this.trace = trace;
 	}
 
 	private Node finish;
@@ -66,8 +66,10 @@ public class AStar extends Pathfinder {
 		}
 		Node currentNode = this.queue.poll();
 		
-		grid.removePath();
-		if(currentNode.getType() != Node.Type.START) this.finish(currentNode);
+		if(this.trace) {
+			grid.removePath();
+			if(currentNode.getType() != Node.Type.START) this.finish(currentNode);
+		}
 		
 		ArrayList<Node> neighbors = grid.getNeightbors(currentNode);
 		System.out.println(currentNode + "FS: " + currentNode.getFScore() + " GS: " + currentNode.getGScore());

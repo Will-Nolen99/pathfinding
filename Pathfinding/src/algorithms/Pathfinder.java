@@ -11,5 +11,6 @@ public abstract class Pathfinder implements Pathfinding {
 	protected Queue<Node> queue;
 	
 	protected Stack<Node> stack;
+	protected boolean trace;
 
 }

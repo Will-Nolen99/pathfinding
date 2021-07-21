@@ -13,8 +13,8 @@ public class Greedy extends Pathfinder {
 	
 	private Node finish;
 
-	public Greedy() {
-
+	public Greedy(boolean trace) {
+		this.trace = trace;
 	}
 
 	@Override
@@ -65,8 +65,10 @@ public class Greedy extends Pathfinder {
 		}
 		Node currentNode = this.queue.poll();
 		
-		grid.removePath();
-		if(currentNode.getType() != Node.Type.START) this.finish(currentNode);
+		if(this.trace) {
+			grid.removePath();
+			if(currentNode.getType() != Node.Type.START) this.finish(currentNode);
+		}
 		
 		ArrayList<Node> neighbors = grid.getNeightbors(currentNode);
 		System.out.println(currentNode + "FS: " + currentNode.getFScore() + " GS: " + currentNode.getGScore());

@@ -11,8 +11,10 @@ import graph.Node.Type;
 
 public final class Dijkstra extends Pathfinder {
 
-	public Dijkstra() {
-		
+	
+	
+	public Dijkstra(boolean trace) {
+		this.trace = trace;
 	}
 
 	@Override
@@ -63,9 +65,10 @@ public final class Dijkstra extends Pathfinder {
 		Node currentNode = this.queue.poll();
 		ArrayList<Node> neighbors = grid.getNeightbors(currentNode);
 		
-		grid.removePath();
-		
-		if(currentNode.getType() != Node.Type.START) this.finish(currentNode);
+		if(this.trace) {
+			grid.removePath();
+			if(currentNode.getType() != Node.Type.START) this.finish(currentNode);
+		}
 		
 		for(Node node: neighbors) {
 			if(!node.isVisited() && node.getType() != Node.Type.WALL) {
