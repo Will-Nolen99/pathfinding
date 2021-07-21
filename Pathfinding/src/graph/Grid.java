@@ -172,6 +172,11 @@ public class Grid {
 		
 		
 	}
+
+	public void buildWall(boolean direction, int wallLocation) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }

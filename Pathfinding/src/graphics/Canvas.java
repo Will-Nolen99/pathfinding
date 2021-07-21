@@ -9,6 +9,7 @@ import algorithms.Greedy;
 import algorithms.Pathfinder;
 import graph.Grid;
 import graph.Node;
+import maze.MazeGenerator;
 import processing.core.PApplet;
 import processing.core.PVector;
 import ui.Button;
@@ -27,6 +28,7 @@ public class Canvas {
 	private Button plus = new Button(1025, 500, "+");
 	private Button minus = new Button(1025, 625, "-");
 	private Button aStar = new Button(1025, 250, "A*"); 
+	private Button maze = new Button(1025, 350, "maze");
 	private Checkbox traceCheck = new Checkbox(1025, 700);
 	private boolean searching = false;
 	private boolean needReset = false;
@@ -56,6 +58,7 @@ public class Canvas {
 		this.clear.draw(window);
 		this.aStar.draw(window);
 		this.traceCheck.draw(window);
+		this.maze.draw(window);
 		
 		window.text("Speed: " + this.numSteps, 1025, 600);
 		
@@ -83,6 +86,7 @@ public class Canvas {
 			this.clear.update(window);
 			this.aStar.update(window);
 			this.traceCheck.update(window);
+			this.maze.update(window);
 		} else {
 			for(int i = 0; i < this.numSteps; i++) {
 				this.searching = !pathFind.step(this.grid);
@@ -131,6 +135,16 @@ public class Canvas {
 			this.searching = true;
 			this.needReset = true;
 		}
+		
+		button = this.maze.click();
+		if(button.equals("maze")){
+			this.grid = new Grid();
+			this.needReset = false;
+			MazeGenerator.generate(this.grid.getCells());
+			this.grid.getCells()[10][50].setType(Node.Type.START);
+			this.grid.getCells()[90][50].setType(Node.Type.TARGET);
+		}
+		
 		
 		if(reset.equals("reset")) {
 			this.grid = new Grid();
