@@ -158,7 +158,7 @@ public class Node {
 		colors.put(Type.HOVERED, new PVector(66, 68, 76));
 		colors.put(Type.START, new PVector(89, 205, 144));
 		colors.put(Type.TARGET, new PVector(238, 99, 82));
-		colors.put(Type.PATH, new PVector(43, 45, 66));
+		colors.put(Type.PATH, new PVector(43, 180, 255));
 		colors.put(Type.SEARCH, new PVector(125, 125, 255));
 		
 	}

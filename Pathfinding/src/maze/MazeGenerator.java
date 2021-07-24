@@ -14,7 +14,7 @@ public class MazeGenerator {
 
 		// coords are [width][height]
 
-		if (cells.length > 1 && cells[0].length > 1) {
+		if (cells.length > 2 &&  cells[0].length > 2) {
 
 			int height = cells[0].length;
 			int width = cells.length;
@@ -29,7 +29,7 @@ public class MazeGenerator {
 
 				// Guild wall from top to bottom
 				for (int i = 0; i < height; i++) {
-					if (rand.nextInt(11) > 4) {
+					if (rand.nextInt(10) > 2) {
 						cells[wall][i].setType(Node.Type.WALL);
 					}
 				}
@@ -65,7 +65,7 @@ public class MazeGenerator {
 
 				// Guild wall from left to right
 				for (int i = 0; i < width; i++) {
-					if (rand.nextInt(11) > 4) { // this line places many doors
+					if (rand.nextInt(10) > 2) { // this line places many doors
 						cells[i][wall].setType(Node.Type.WALL);
 					}
 				}

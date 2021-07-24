@@ -98,7 +98,6 @@ public final class Dijkstra extends Pathfinder {
 		System.out.println(currentNode.getDistance());
 		
 
-		
 		while(currentNode.getParent() != null) {
 			
 			currentNode.setType(Node.Type.PATH);
@@ -107,9 +106,6 @@ public final class Dijkstra extends Pathfinder {
 		}
 		
 
-		
-		
-		
 	}
 
 }
