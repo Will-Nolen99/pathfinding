@@ -35,7 +35,7 @@ To clear or reset the maze press the clear or reset button.
 # How to run
 
 To run the program simply compile and then run the Pathfinder class in the default package.
-make sure to have java installed.
+Make sure to have java installed.
 
 
 # Processing
